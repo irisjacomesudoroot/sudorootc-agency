@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudo Root Creative | Arquitectura Digital & IA</title>
+  
+  <link rel="icon" type="image/png" href="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png">  
+
+  <style>
+/* PEGA ESTO JUSTO DEBAJO DE LA ETIQUETA <STYLE> */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: auto !important; /* Permite que crezca según el contenido */
+  min-height: 100vh; /* Asegura que al menos ocupe toda la pantalla */
+  overflow-x: hidden; /* Evita que se mueva de lado a lado */
+  background-color: #000; /* Para que no se vean bordes blancos */
+}
+
+.container, .main, #section-hero { /* Cambia esto por el nombre de tu div principal */
+  width: 100% !important;
+  max-width: 100vw !important;
+  margin: 0 auto !important;
+}   
+ /* --- VARIABLES DE MARCA --- */
+    :root {
+      --bg-dark: #020202; 
+      --bg-surface: #080808;
+      --text-light: #F8F9FA;
+      --brand-green: #61C82A;
+      --brand-purple: #7B2EFF;
+    }
+
+    /* --- RESET & FUNDAMENTOS --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+      cursor: none; 
+    }
+
+    /* ORBE DE LUZ MORADA (CURSOR) */
+    .custom-cursor {
+      position: fixed; top: 0; left: 0; width: 25px; height: 25px;
+      background: var(--brand-purple); border-radius: 50%; pointer-events: none;
+      z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: screen;
+      box-shadow: 0 0 20px var(--brand-purple), 0 0 40px var(--brand-purple);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .custom-cursor.hovering {
+      width: 60px; height: 60px; background: rgba(97, 200, 42, 0.15);
+      border: 1px solid var(--brand-green); box-shadow: 0 0 30px rgba(97, 200, 42, 0.4);
+    }
+
+    /* --- FONDO ETEREO "PLEXUS" --- */
+    #bg-malla {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2; opacity: 0.6;
+    }
+
+    /* --- ANIMACIONES --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes neonPulse {
+      0% { filter: drop-shadow(0 0 10px var(--brand-purple)); }
+      50% { filter: drop-shadow(0 0 20px var(--brand-purple)); }
+      100% { filter: drop-shadow(0 0 10px var(--brand-purple)); }
+    }
+
+    /* --- NAVEGACIÓN --- */
+    .navbar {
+      position: fixed; top: 0; width: 100%; display: flex;
+      justify-content: space-between; align-items: center; padding: 1.2rem 5%;
+      background: rgba(2, 2, 2, 0.85); backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.04); z-index: 100;
+    }
+
+    .logo-container {
+      display: flex; align-items: center; gap: 20px; font-weight: 300; 
+      font-size: 1.4rem; letter-spacing: 1.5px; color: #FFF;
+      text-decoration: none; cursor: none;
+    }
+
+    .logo-img {
+      height: 70px; width: auto; object-fit: contain; cursor: none;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: neonPulse 4s infinite ease-in-out;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.15) rotate(-2deg); 
+      filter: drop-shadow(0 0 25px var(--brand-purple)) !important; 
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+      transition: all 0.3s ease; position: relative; cursor: none;
+    }
+
+    .nav-links a::after {
+      content: ''; position: absolute; width: 0; height: 2px;
+      bottom: -8px; left: 0; background-color: var(--brand-green);
+      box-shadow: 0 0 10px var(--brand-green); transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-green);
+      text-shadow: 0 0 15px var(--brand-green);
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+
+    /* --- HERO --- */
+    .hero {
+      display: flex; min-height: 100vh; padding: 0 5%;
+      align-items: center; position: relative;
+    }
+
+    .hero-content {
+      flex: 1; padding-top: 120px;
+      animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; z-index: 2;
+    }
+
+    .hero-visuals {
+      flex: 1; display: flex; justify-content: center; align-items: center;
+      position: relative; z-index: 5; /* Asegura que esté frente al plexus */
+      animation: fadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+
+    .eyebrow {
+      color: var(--brand-green); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 15px;
+    }
+
+    .eyebrow::before {
+      content: ""; display: inline-block; width: 30px; height: 2px; background-color: var(--brand-purple);
+    }
+
+    .hero h1 {
+      font-size: 4.8rem; font-weight: 800; line-height: 1.05; margin-bottom: 2rem;
+      letter-spacing: -2px; background: linear-gradient(135deg, #FFF 0%, #A0A0A0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; min-height: 150px; 
+    }
+
+    .hero p {
+      font-size: 1.25rem; color: #A0A0A0; max-width: 600px;
+      margin-bottom: 3rem; line-height: 1.6; font-weight: 300;
+    }
+
+    .btn-primary {
+      background: #020202; color: #FFF; padding: 1.2rem 3rem;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 4px;
+      text-decoration: none; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; font-size: 0.85rem; position: relative;
+      overflow: hidden; display: inline-block; cursor: none; z-index: 1; transition: all 0.4s;
+    }
+
+    .btn-primary::before {
+      content: ''; position: absolute; top: 50%; left: 50%; width: 0px; height: 0px;
+      background: linear-gradient(135deg, var(--brand-purple), var(--brand-green));
+      border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.6s ease, height 0.6s ease;
+      z-index: -2; opacity: 0.5; filter: blur(10px);
+    }
+
+    .btn-primary:hover::before { width: 250px; height: 250px; }
+    .btn-primary:hover {
+      color: var(--bg-dark); border-color: #FFF; font-weight: 900; box-shadow: 0 0 30px rgba(97, 200, 42, 0.3);
+    }
+
+    /* RECTÁNGULO DE DISEÑO CABRÓN */
+    .image-card {
+      width: 90%; height: 550px;
+      background-color: #111; 
+      border-radius: 24px; position: relative; overflow: hidden;
+      box-shadow: 0 50px 100px rgba(0,0,0,0.8); 
+      animation: float 8s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .image-card:hover {
+      transform: scale(1.05) translateY(-10px);
+      border-color: var(--brand-purple);
+      box-shadow: 0 0 40px rgba(123, 46, 255, 0.3);
+    }
+
+    .hero-video {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; z-index: 0; opacity: 0.9;
+    }
+
+    .image-tag {
+      position: absolute; bottom: 30px; left: 30px; background: rgba(2, 2, 2, 0.6);
+      backdrop-filter: blur(10px); padding: 1.2rem 2rem; border: 1px solid var(--brand-green);
+      border-radius: 4px; font-weight: 700; color: var(--brand-green);
+      text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; z-index: 2;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      padding: 4rem 5%; background-color: #000; border-top: 1px solid rgba(255,255,255,0.03);
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center;
+    }
+    .footer-brand { font-weight: 700; color: #FFF; letter-spacing: 1px; }
+    .footer-link { color: #A0A0A0; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; cursor: none; }
+    .footer-link:hover { color: var(--brand-green); }
+
+    @media (max-width: 900px) {
+      body { cursor: auto; } .custom-cursor { display: none; }
+      .navbar { padding: 1rem 5%; } .nav-links { display: none; }
+      .hero { flex-direction: column; text-align: center; padding-top: 140px; } 
+      .hero h1 { font-size: 3.5rem; min-height: auto; }
+      .image-card { height: 400px; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <canvas id="bg-malla"></canvas>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo-container interactive-hover">
+      <img src="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png" alt="Logo Sudo Root Creative" class="logo-img">
+      Sudo Root Creative
+    </a>
+    <div class="nav-links">
+      <a href="ecosistema.html" class="interactive-hover">Ecosistema</a>
+      <a href="contacto.html" class="interactive-hover">Contacto</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="eyebrow">Desarrollo, IA & Dirección Estratégica</div>
+      <h1 id="scramble-title" data-text="No hacemos una sola cosa. Hackeamos todo el ecosistema.">
+        Iniciando terminal...
+      </h1>
+      <p>Sabemos lo que es que tu trabajo no sea valorado. Por eso, en Sudo Root somos una agencia digital implacable. Desde crear experiencias UX/UI y producir video con IA, hasta programar plataformas web y automatizar dashboards de rendimiento. Hacemos de todo, para marcas que exigen todo.</p>
+      
+      <div class="btn-magnetic-wrap interactive-hover">
+        <a href="ecosistema.html" class="btn-primary">Explorar Ecosistema</a>
+      </div>
+    </div>
+    
+    <div class="hero-visuals">
+      <div class="image-card interactive-hover">
+        <img src="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\banner gato.png" alt="Arquitectura Digital SRC" class="hero-video">
+        <div class="image-tag">Arquitectura Digital & IA</div>
+      </div>
+    </div>
+  </header>
+
+  <footer class="footer">
+    <div>Sudo Root Creative © 2026</div>
+    <div style="text-align: center;"><a href="https://instagram.com/sudorootcreative" target="_blank" class="footer-link interactive-hover">Instagram: @sudorootcreative</a></div>
+    <div style="text-align: right;"><a href="#privacidad" class="footer-link interactive-hover">Aviso de Privacidad</a></div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Cursor Custom
+        const cursor = document.getElementById('custom-cursor');
+        const interactives = document.querySelectorAll('.interactive-hover');
+        document.addEventListener('mousemove', (e) => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // 2. Scramble Matrix Effect
+        const title = document.getElementById('scramble-title');
+        const finalString = title.getAttribute('data-text');
+        const chars = '!<>-_\\/[]{}—=+*^?#________';
+        let scrambleReq;
+
+        function initScramble() {
+          if(scrambleReq) cancelAnimationFrame(scrambleReq);
+          let frame = 0; let queue = [];
+          for (let i = 0; i < finalString.length; i++) {
+            queue.push({
+              from: chars[Math.floor(Math.random() * chars.length)],
+              to: finalString[i],
+              start: Math.floor(Math.random() * 40),
+              end: Math.floor(Math.random() * 40) + 40,
+              char: ''
+            });
+          }
+          function scramble() {
+            let output = ''; let complete = 0;
+            for (let i = 0; i < queue.length; i++) {
+              let { from, to, start, end, char } = queue[i];
+              if (frame >= end) { complete++; output += to; }
+              else if (frame >= start) {
+                if (!char || Math.random() < 0.28) { char = queue[i].char = chars[Math.floor(Math.random() * chars.length)]; }
+                output += `<span style="color:var(--brand-green);">${char}</span>`;
+              } else { output += from; }
+            }
+            title.innerHTML = output;
+            if (complete === queue.length) { title.innerHTML = finalString; }
+            else { frame++; scrambleReq = requestAnimationFrame(scramble); }
+          }
+          scramble();
+        }
+        initScramble();
+
+        // 3. Plexus Background
+        const canvas = document.getElementById('bg-malla');
+        const ctx = canvas.getContext('2d');
+        let dots = [];
+        const numDots = 60;
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+        class Dot {
+          constructor() {
+            this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
+          }
+          update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          }
+          draw() { ctx.beginPath(); ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; ctx.fill(); }
+        }
+        for (let i = 0; i < numDots; i++) dots.push(new Dot());
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          dots.forEach(dot => {
+            dot.update(); dot.draw();
+            dots.slice(dots.indexOf(dot) + 1).forEach(other => {
+              const dist = Math.sqrt((dot.x - other.x)**2 + (dot.y - other.y)**2);
+              if (dist < 120) {
+                ctx.beginPath(); ctx.moveTo(dot.x, dot.y); ctx.lineTo(other.x, other.y);
+                ctx.strokeStyle = `rgba(123, 46, 255, ${0.1 * (1 - dist/120)})`; ctx.stroke();
+              }
+            });
+          });
+          requestAnimationFrame(draw);
+        }
+        draw();
+    });
+  </script>
+</body>
+</html>

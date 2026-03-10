@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecosistema SRC | Arquitectura Digital de Alto Impacto</title>
+<link rel="icon" type="image/png" href="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png">  
+<style>
+    /* --- MISMAS VARIABLES DE TU MARCA (COHERENCIA TOTAL) --- */
+    :root {
+      --bg-dark: #020202; 
+      --bg-surface: #080808;
+      --text-light: #F8F9FA;
+      --brand-green: #61C82A;
+      --brand-purple: #7B2EFF;
+    }
+
+    /* --- MISMO RESET BÁSICO --- */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+      cursor: none; /* Recuperamos tu cursor */
+    }
+
+    /* --- MISMO ORBE DE LUZ MORADA (CURSOR) --- */
+    .custom-cursor {
+      position: fixed; top: 0; left: 0; width: 25px; height: 25px;
+      background: var(--brand-purple); border-radius: 50%; pointer-events: none;
+      z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: screen;
+      box-shadow: 0 0 20px var(--brand-purple), 0 0 40px var(--brand-purple);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .custom-cursor.hovering {
+      width: 60px; height: 60px; background: rgba(97, 200, 42, 0.15);
+      border: 1px solid var(--brand-green); box-shadow: 0 0 30px rgba(97, 200, 42, 0.4);
+    }
+
+    /* --- MISMO FONDO ETEREO "PLEXUS" --- */
+    #bg-malla {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2; opacity: 0.6;
+    }
+
+    /* --- MISMAS ANIMACIONES --- */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* --- NAVEGACIÓN (GLASSMORPHISM LUXURY - Adaptada para regresar) --- */
+    .navbar {
+      position: fixed; top: 0; width: 100%; display: flex;
+      justify-content: space-between; align-items: center; padding: 1rem 5%;
+      background: rgba(2, 2, 2, 0.85); backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.04); z-index: 100;
+    }
+
+    .logo-container {
+      display: flex; align-items: center; gap: 20px; font-weight: 300; 
+      font-size: 1.4rem; letter-spacing: 1.5px; color: #FFF;
+      text-decoration: none; cursor: none;
+    }
+
+  /* TU LOGO CON EXPANSIÓN Y NEÓN */
+    .logo-img {
+      height: 70px; 
+      width: auto; 
+      object-fit: contain; 
+      cursor: none;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 0 10px var(--brand-purple));
+    }
+
+    .logo-img:hover {
+      /* Expansión Premium */
+      transform: scale(1.15) rotate(-2deg); 
+      /* Efecto Neón Intenso */
+      filter: drop-shadow(0 0 25px var(--brand-purple)) !important; 
+    }
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
+      transition: all 0.3s ease; position: relative; cursor: none;
+    }
+
+    .nav-links a::after {
+      content: ''; position: absolute; width: 0; height: 1px;
+      bottom: -5px; left: 0; background-color: var(--brand-green); transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--brand-green); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* --- SECCIÓN ECOSISTEMA SUDO ROOT CREATIVE (BENTO BOX GRANDE) --- */
+    .ecosystem-section {
+      padding: 10rem 5%;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .section-header {
+      margin-bottom: 6rem; text-align: center; display: flex; flex-direction: column; align-items: center;
+    }
+
+    .section-header h2 {
+      font-size: 4.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 1.5rem; letter-spacing: -2px;
+    }
+
+    .section-header p {
+      color: #A0A0A0; font-size: 1.25rem; max-width: 800px; line-height: 1.6; font-weight: 300;
+    }
+
+    /* --- MISMO BENTO BOX (SERVICIOS) REESTRUCTURADO --- */
+    .bento-container {
+      perspective: 1000px; max-width: 1400px; width: 100%; margin: 0 auto;
+    }
+
+    .bento-grid {
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      grid-template-rows: repeat(3, 320px); 
+      gap: 1.5rem; transform-style: preserve-3d;
+    }
+
+    .bento-item {
+      background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 24px; padding: 3rem; transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
+      cursor: none; transform-style: preserve-3d;
+    }
+
+    .bento-item:hover {
+      border-color: rgba(97, 200, 42, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .bento-item h3 {
+      font-size: 2.2rem; font-weight: 700; color: #FFF; margin-bottom: 1rem; z-index: 2; transform: translateZ(30px);
+    }
+
+    .bento-item p {
+      font-size: 1.1rem; color: #A0A0A0; margin-bottom: 0; z-index: 2; line-height: 1.6; font-weight: 300; transform: translateZ(15px);
+    }
+
+    /* Asignación de espacios en el Grid (Coherencia Visual Asimétrica) */
+    .item-branding { grid-column: span 2; grid-row: span 1; }
+    .item-uxui { grid-column: span 2; grid-row: span 1; }
+    .item-ads { grid-column: span 1; grid-row: span 2; } /* Esta caja es alta (2 filas) */
+    .item-video-ia { grid-column: span 2; grid-row: span 1; }
+    .item-ecommerce { grid-column: span 1; grid-row: span 1; }
+    .item-social { grid-column: span 2; grid-row: span 1; }
+    .item-dashboards { grid-column: span 1; grid-row: span 1; }
+
+    /* MISMOS EFECTOS DE RESPLANDOR (ICON-GLOW) */
+    .icon-glow {
+      position: absolute; top: -50px; right: -50px; width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(123, 46, 255, 0.3) 0%, transparent 70%);
+      z-index: 1; border-radius: 50%; transform: translateZ(5px);
+    }
+    .icon-glow-green { background: radial-gradient(circle, rgba(97, 200, 42, 0.2) 0%, transparent 70%); }
+
+    /* --- FOOTER MINIMALISTA --- */
+    .footer {
+      padding: 4rem 5%; background-color: #000; border-top: 1px solid rgba(255,255,255,0.03);
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .footer-col { display: flex; flex-direction: column; gap: 0.8rem; }
+    .footer-col.center { align-items: center; text-align: center; }
+    .footer-col.right { align-items: flex-end; text-align: right; }
+    .footer-brand { font-weight: 700; color: #FFF; letter-spacing: 1px; }
+    .footer-location { color: #444; font-size: 0.85rem; font-weight: 300; }
+    .footer-link { color: #A0A0A0; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; cursor: none; }
+    .footer-link:hover { color: var(--brand-green); }
+
+    /* --- RESPONSIVE ADAPTATIVO --- */
+    @media (max-width: 900px) {
+      body { cursor: auto; } .custom-cursor { display: none; }
+      .navbar { padding: 1rem 5%; } .nav-links { display: none; }
+      .section-header h2 { font-size: 3rem; }
+      .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .bento-item { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 280px; padding: 2.5rem;}
+      .bento-item h3 { font-size: 1.8rem; }
+      .footer { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .footer-col { align-items: center; text-align: center; }
+      .footer-col.right { align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <canvas id="bg-malla"></canvas>
+
+  <nav class="navbar reveal active">
+    <a href="file:///C:/Users/USER/OneDrive/Escritorio/SUDO%20ROOT%20CREATIVE%20PAGINA%20WEB/inicio.html" class="logo-container interactive-hover">
+      <img src="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png"Logo Sudo Root Creative" class="logo-img">
+      Sudo Root Creative
+    </a>
+    <div class="nav-links">
+      <a href="file:///C:/Users/USER/OneDrive/Escritorio/SUDO%20ROOT%20CREATIVE%20PAGINA%20WEB/inicio.html" class="interactive-hover">Regresar al Inicio</a>
+    </div>
+  </nav>
+
+  <section class="ecosystem-section" id="servicios">
+    <div class="section-header reveal active">
+      <h2>Ecosistema Sudo Root Creative.</h2>
+      <p>No somos todólogos desordenados. Somos arquitectos digitales. Integramos código, inteligencia artificial y psicología del consumidor para crear una maquinaria de ventas unificada y potente.</p>
+    </div>
+
+    <div class="bento-container reveal active">
+      <div class="bento-grid">
+        
+        <div class="bento-item item-branding interactive-hover" data-tilt>
+          <div class="icon-glow"></div>
+          <h3>Branding & Identidad</h3>
+          <p>Le inyectamos alma y propósito estratégico a tu negocio. Dirección creativa y narrativa visual para marcas que no quieren ser una más.</p>
+        </div>
+
+        <div class="bento-item item-uxui interactive-hover" data-tilt>
+          <div class="icon-glow icon-glow-green"></div>
+          <h3>Arquitectura UX/UI & Web</h3>
+          <p>Diseñamos la experiencia de usuario perfecta y desarrollamos desde páginas web de lujo hasta plataformas y apps corporativas a la medida.</p>
+        </div>
+
+        <div class="bento-item item-ads interactive-hover" data-tilt>
+          <div class="icon-glow"></div>
+          <h3>Pauta & Conversión Pro</h3>
+          <p>Meta Ads, Neuromarketing y estrategias de embudo agresivas. Escalamos tus ventas dominando el algoritmo con precisión quirúrgica basándonos en datos.</p>
+        </div>
+
+        <div class="bento-item item-video-ia interactive-hover" data-tilt>
+          <h3>Video & IA Creativa</h3>
+          <p>Visuales dinámicos de alto nivel y generación de contenido hiperrealista impulsado por IA para retener la atención en segundos.</p>
+        </div>
+
+        <div class="bento-item item-ecommerce interactive-hover" data-tilt>
+          <div class="icon-glow icon-glow-green"></div>
+          <h3>E-commerce</h3>
+          <p>Tiendas en línea orientadas al 100% a la conversión técnica y la experiencia de usuario premium.</p>
+        </div>
+
+        <div class="bento-item item-social interactive-hover" data-tilt>
+          <div class="icon-glow icon-glow-green"></div>
+          <h3>Contenido Orgánico & Social</h3>
+          <p>Carruseles estructurados y gestión de comunidades que educan, entretienen y te posicionan como autoridad absoluta en tu nicho.</p>
+        </div>
+
+        <div class="bento-item item-dashboards interactive-hover" data-tilt>
+          <div class="icon-glow"></div>
+          <h3>Automatización & Dashboards</h3>
+          <p>Tableros de control técnicos para visualizar el rendimiento y medir tus KPIs en tiempo real. Decisiones basadas en datos reales.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-col">
+      <div class="footer-brand">Sudo Root Creative</div>
+      <div class="footer-location">Mente en México. Impacto Global.</div>
+    </div>
+    
+    <div class="footer-col center">
+      <a href="https://instagram.com/sudorootcreative" target="_blank" class="footer-link interactive-hover">Instagram: @sudorootcreative</a>
+    </div>
+    
+    <div class="footer-col right">
+      <a href="#privacidad" class="footer-link interactive-hover">Aviso de Privacidad</a>
+      <div class="footer-location" style="margin-top:0.5rem;">© 2026 Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // 1. Cursor Custom Glow Orb
+        const cursor = document.getElementById('custom-cursor');
+        const interactives = document.querySelectorAll('.interactive-hover');
+
+        document.addEventListener('mousemove', (e) => {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // 2. Fondo Etereo "Plexus" (Mismo que el Home)
+        const canvas = document.getElementById('bg-malla');
+        const ctx = canvas.getContext('2d');
+        let dots = [];
+        const numDots = 60; // Sutil para elegancia
+        const connectionDistance = 120;
+        let mouse = { x: null, y: null };
+
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+        class Dot {
+          constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.radius = 1.5;
+          }
+          update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+          }
+          draw() {
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; ctx.fill();
+          }
+        }
+        for (let i = 0; i < numDots; i++) dots.push(new Dot());
+
+        function drawPlexus() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          dots.forEach(dot => {
+            dot.update(); dot.draw();
+            for (let j = dots.indexOf(dot) + 1; j < dots.length; j++) {
+              const otherDot = dots[j];
+              const dist = Math.sqrt((dot.x - otherDot.x)**2 + (dot.y - otherDot.y)**2);
+              if (dist < connectionDistance) {
+                ctx.beginPath(); ctx.moveTo(dot.x, dot.y); ctx.lineTo(otherDot.x, otherDot.y);
+                ctx.strokeStyle = `rgba(123, 46, 255, ${0.1 * (1 - dist/connectionDistance)})`; ctx.lineWidth = 0.5; ctx.stroke();
+              }
+            }
+            if (mouse.x && mouse.y) {
+              const distMouse = Math.sqrt((dot.x - mouse.x)**2 + (dot.y - mouse.y)**2);
+              if (distMouse < connectionDistance) {
+                 ctx.beginPath(); ctx.moveTo(dot.x, dot.y); ctx.lineTo(mouse.x, mouse.y);
+                 ctx.strokeStyle = `rgba(97, 200, 42, ${0.1 * (1 - distMouse/connectionDistance)})`; ctx.lineWidth = 0.5; ctx.stroke();
+              }
+            }
+          });
+          requestAnimationFrame(drawPlexus);
+        }
+        drawPlexus();
+
+        // 3. Efecto 3D Tilt en Bento Items
+        const tiltElements = document.querySelectorAll('[data-tilt]');
+        tiltElements.forEach(el => {
+          el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -8; 
+            const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 8;
+            el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+          });
+          el.addEventListener('mouseleave', () => { el.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`; });
+        });
+
+        // 4. Scroll Reveal Animation (Repetitiva)
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+            else entry.target.classList.remove('active');
+          });
+        }, { threshold: 0.1 }); 
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        
+    });
+  </script>
+
+</body>
+</html>
