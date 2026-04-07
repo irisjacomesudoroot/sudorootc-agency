@@ -1,390 +1,752 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ecosistema SRC | Arquitectura Digital de Alto Impacto</title>
-<link rel="icon" type="image/png" href="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png">  
-<style>
-    /* --- MISMAS VARIABLES DE TU MARCA (COHERENCIA TOTAL) --- */
-    :root {
-      --bg-dark: #020202; 
-      --bg-surface: #080808;
-      --text-light: #F8F9FA;
-      --brand-green: #61C82A;
-      --brand-purple: #7B2EFF;
-    }
+/* ==========================================================================
+   SUDO ROOT CREATIVE - MASTER CSS
+   ========================================================================== */
 
-    /* --- MISMO RESET BÁSICO --- */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
+/* --- 1. VARIABLES GLOBALES --- */
+:root {
+    --bg-dark: #050505;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+    --neon-green: #76b947;
+    --neon-purple: #7B2EFF;
+}
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      position: relative;
-      cursor: none; /* Recuperamos tu cursor */
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
 
-    /* --- MISMO ORBE DE LUZ MORADA (CURSOR) --- */
-    .custom-cursor {
-      position: fixed; top: 0; left: 0; width: 25px; height: 25px;
-      background: var(--brand-purple); border-radius: 50%; pointer-events: none;
-      z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: screen;
-      box-shadow: 0 0 20px var(--brand-purple), 0 0 40px var(--brand-purple);
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .custom-cursor.hovering {
-      width: 60px; height: 60px; background: rgba(97, 200, 42, 0.15);
-      border: 1px solid var(--brand-green); box-shadow: 0 0 30px rgba(97, 200, 42, 0.4);
-    }
-
-    /* --- MISMO FONDO ETEREO "PLEXUS" --- */
-    #bg-malla {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -2; opacity: 0.6;
-    }
-
-    /* --- MISMAS ANIMACIONES --- */
-    .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.active {
-      opacity: 1; transform: translateY(0);
-    }
-
-    /* --- NAVEGACIÓN (GLASSMORPHISM LUXURY - Adaptada para regresar) --- */
-    .navbar {
-      position: fixed; top: 0; width: 100%; display: flex;
-      justify-content: space-between; align-items: center; padding: 1rem 5%;
-      background: rgba(2, 2, 2, 0.85); backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,0.04); z-index: 100;
-    }
-
-    .logo-container {
-      display: flex; align-items: center; gap: 20px; font-weight: 300; 
-      font-size: 1.4rem; letter-spacing: 1.5px; color: #FFF;
-      text-decoration: none; cursor: none;
-    }
-
-  /* TU LOGO CON EXPANSIÓN Y NEÓN */
-    .logo-img {
-      height: 70px; 
-      width: auto; 
-      object-fit: contain; 
-      cursor: none;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      filter: drop-shadow(0 0 10px var(--brand-purple));
-    }
-
-    .logo-img:hover {
-      /* Expansión Premium */
-      transform: scale(1.15) rotate(-2deg); 
-      /* Efecto Neón Intenso */
-      filter: drop-shadow(0 0 25px var(--brand-purple)) !important; 
-    }
-    }
-
-    .nav-links { display: flex; gap: 2.5rem; }
-
-    .nav-links a {
-      color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; text-transform: uppercase; letter-spacing: 1px;
-      transition: all 0.3s ease; position: relative; cursor: none;
-    }
-
-    .nav-links a::after {
-      content: ''; position: absolute; width: 0; height: 1px;
-      bottom: -5px; left: 0; background-color: var(--brand-green); transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover { color: var(--brand-green); }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* --- SECCIÓN ECOSISTEMA SUDO ROOT CREATIVE (BENTO BOX GRANDE) --- */
-    .ecosystem-section {
-      padding: 10rem 5%;
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center;
-    }
-
-    .section-header {
-      margin-bottom: 6rem; text-align: center; display: flex; flex-direction: column; align-items: center;
-    }
-
-    .section-header h2 {
-      font-size: 4.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 1.5rem; letter-spacing: -2px;
-    }
-
-    .section-header p {
-      color: #A0A0A0; font-size: 1.25rem; max-width: 800px; line-height: 1.6; font-weight: 300;
-    }
-
-    /* --- MISMO BENTO BOX (SERVICIOS) REESTRUCTURADO --- */
-    .bento-container {
-      perspective: 1000px; max-width: 1400px; width: 100%; margin: 0 auto;
-    }
-
-    .bento-grid {
-      display: grid; 
-      grid-template-columns: repeat(4, 1fr); 
-      grid-template-rows: repeat(3, 320px); 
-      gap: 1.5rem; transform-style: preserve-3d;
-    }
-
-    .bento-item {
-      background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 24px; padding: 3rem; transition: transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
-      cursor: none; transform-style: preserve-3d;
-    }
-
-    .bento-item:hover {
-      border-color: rgba(97, 200, 42, 0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    }
-
-    .bento-item h3 {
-      font-size: 2.2rem; font-weight: 700; color: #FFF; margin-bottom: 1rem; z-index: 2; transform: translateZ(30px);
-    }
-
-    .bento-item p {
-      font-size: 1.1rem; color: #A0A0A0; margin-bottom: 0; z-index: 2; line-height: 1.6; font-weight: 300; transform: translateZ(15px);
-    }
-
-    /* Asignación de espacios en el Grid (Coherencia Visual Asimétrica) */
-    .item-branding { grid-column: span 2; grid-row: span 1; }
-    .item-uxui { grid-column: span 2; grid-row: span 1; }
-    .item-ads { grid-column: span 1; grid-row: span 2; } /* Esta caja es alta (2 filas) */
-    .item-video-ia { grid-column: span 2; grid-row: span 1; }
-    .item-ecommerce { grid-column: span 1; grid-row: span 1; }
-    .item-social { grid-column: span 2; grid-row: span 1; }
-    .item-dashboards { grid-column: span 1; grid-row: span 1; }
-
-    /* MISMOS EFECTOS DE RESPLANDOR (ICON-GLOW) */
-    .icon-glow {
-      position: absolute; top: -50px; right: -50px; width: 250px; height: 250px;
-      background: radial-gradient(circle, rgba(123, 46, 255, 0.3) 0%, transparent 70%);
-      z-index: 1; border-radius: 50%; transform: translateZ(5px);
-    }
-    .icon-glow-green { background: radial-gradient(circle, rgba(97, 200, 42, 0.2) 0%, transparent 70%); }
-
-    /* --- FOOTER MINIMALISTA --- */
-    .footer {
-      padding: 4rem 5%; background-color: #000; border-top: 1px solid rgba(255,255,255,0.03);
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center;
-      position: relative; z-index: 1;
-    }
-    .footer-col { display: flex; flex-direction: column; gap: 0.8rem; }
-    .footer-col.center { align-items: center; text-align: center; }
-    .footer-col.right { align-items: flex-end; text-align: right; }
-    .footer-brand { font-weight: 700; color: #FFF; letter-spacing: 1px; }
-    .footer-location { color: #444; font-size: 0.85rem; font-weight: 300; }
-    .footer-link { color: #A0A0A0; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; cursor: none; }
-    .footer-link:hover { color: var(--brand-green); }
-
-    /* --- RESPONSIVE ADAPTATIVO --- */
-    @media (max-width: 900px) {
-      body { cursor: auto; } .custom-cursor { display: none; }
-      .navbar { padding: 1rem 5%; } .nav-links { display: none; }
-      .section-header h2 { font-size: 3rem; }
-      .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .bento-item { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 280px; padding: 2.5rem;}
-      .bento-item h3 { font-size: 1.8rem; }
-      .footer { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-      .footer-col { align-items: center; text-align: center; }
-      .footer-col.right { align-items: center; text-align: center; }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="custom-cursor" id="custom-cursor"></div>
-  <canvas id="bg-malla"></canvas>
-
-  <nav class="navbar reveal active">
-    <a href="file:///C:/Users/USER/OneDrive/Escritorio/SUDO%20ROOT%20CREATIVE%20PAGINA%20WEB/inicio.html" class="logo-container interactive-hover">
-      <img src="C:\Users\USER\OneDrive\Escritorio\SUDO ROOT CREATIVE PAGINA WEB\sudo root logo.png"Logo Sudo Root Creative" class="logo-img">
-      Sudo Root Creative
-    </a>
-    <div class="nav-links">
-      <a href="file:///C:/Users/USER/OneDrive/Escritorio/SUDO%20ROOT%20CREATIVE%20PAGINA%20WEB/inicio.html" class="interactive-hover">Regresar al Inicio</a>
-    </div>
-  </nav>
-
-  <section class="ecosystem-section" id="servicios">
-    <div class="section-header reveal active">
-      <h2>Ecosistema Sudo Root Creative.</h2>
-      <p>No somos todólogos desordenados. Somos arquitectos digitales. Integramos código, inteligencia artificial y psicología del consumidor para crear una maquinaria de ventas unificada y potente.</p>
-    </div>
-
-    <div class="bento-container reveal active">
-      <div class="bento-grid">
-        
-        <div class="bento-item item-branding interactive-hover" data-tilt>
-          <div class="icon-glow"></div>
-          <h3>Branding & Identidad</h3>
-          <p>Le inyectamos alma y propósito estratégico a tu negocio. Dirección creativa y narrativa visual para marcas que no quieren ser una más.</p>
-        </div>
-
-        <div class="bento-item item-uxui interactive-hover" data-tilt>
-          <div class="icon-glow icon-glow-green"></div>
-          <h3>Arquitectura UX/UI & Web</h3>
-          <p>Diseñamos la experiencia de usuario perfecta y desarrollamos desde páginas web de lujo hasta plataformas y apps corporativas a la medida.</p>
-        </div>
-
-        <div class="bento-item item-ads interactive-hover" data-tilt>
-          <div class="icon-glow"></div>
-          <h3>Pauta & Conversión Pro</h3>
-          <p>Meta Ads, Neuromarketing y estrategias de embudo agresivas. Escalamos tus ventas dominando el algoritmo con precisión quirúrgica basándonos en datos.</p>
-        </div>
-
-        <div class="bento-item item-video-ia interactive-hover" data-tilt>
-          <h3>Video & IA Creativa</h3>
-          <p>Visuales dinámicos de alto nivel y generación de contenido hiperrealista impulsado por IA para retener la atención en segundos.</p>
-        </div>
-
-        <div class="bento-item item-ecommerce interactive-hover" data-tilt>
-          <div class="icon-glow icon-glow-green"></div>
-          <h3>E-commerce</h3>
-          <p>Tiendas en línea orientadas al 100% a la conversión técnica y la experiencia de usuario premium.</p>
-        </div>
-
-        <div class="bento-item item-social interactive-hover" data-tilt>
-          <div class="icon-glow icon-glow-green"></div>
-          <h3>Contenido Orgánico & Social</h3>
-          <p>Carruseles estructurados y gestión de comunidades que educan, entretienen y te posicionan como autoridad absoluta en tu nicho.</p>
-        </div>
-
-        <div class="bento-item item-dashboards interactive-hover" data-tilt>
-          <div class="icon-glow"></div>
-          <h3>Automatización & Dashboards</h3>
-          <p>Tableros de control técnicos para visualizar el rendimiento y medir tus KPIs en tiempo real. Decisiones basadas en datos reales.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-col">
-      <div class="footer-brand">Sudo Root Creative</div>
-      <div class="footer-location">Mente en México. Impacto Global.</div>
-    </div>
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
     
-    <div class="footer-col center">
-      <a href="https://instagram.com/sudorootcreative" target="_blank" class="footer-link interactive-hover">Instagram: @sudorootcreative</a>
-    </div>
+    background-image: 
+        radial-gradient(circle at 50% 20%, rgba(42, 42, 42, 0.85) 0%, rgba(5, 5, 5, 0.95) 55%, rgba(0, 0, 0, 1) 100%),
+        url('nodos_fondo.png'); /* Revisa que se llame igual tu imagen */
+        
+    /* 👇 AQUÍ ESTÁ LA MAGIA: El 50% hace los nodos más chicos 👇 */
+    background-size: cover, 40%; 
     
-    <div class="footer-col right">
-      <a href="#privacidad" class="footer-link interactive-hover">Aviso de Privacidad</a>
-      <div class="footer-location" style="margin-top:0.5rem;">© 2026 Todos los derechos reservados.</div>
-    </div>
-  </footer>
+    background-position: center top, center;
+    background-attachment: fixed; 
+    
+    /* Agregamos esto para que no se multipliquen como virus al hacerse chiquitos */
+    background-repeat: no-repeat, no-repeat; 
+}
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        
-        // 1. Cursor Custom Glow Orb
-        const cursor = document.getElementById('custom-cursor');
-        const interactives = document.querySelectorAll('.interactive-hover');
+/* --- 2. ESTRUCTURA PRINCIPAL Y NAVEGACIÓN --- */
+.main-container {
+    width: calc(100% - 60px); 
+    margin: 0; 
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX + 'px';
-          cursor.style.top = e.clientY + 'px';
-        });
+.side-nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    z-index: 100;
+}
 
-        interactives.forEach(el => {
-          el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-          el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-        });
+.side-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
 
-        // 2. Fondo Etereo "Plexus" (Mismo que el Home)
-        const canvas = document.getElementById('bg-malla');
-        const ctx = canvas.getContext('2d');
-        let dots = [];
-        const numDots = 60; // Sutil para elegancia
-        const connectionDistance = 120;
-        let mouse = { x: null, y: null };
+.side-nav a {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
 
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        document.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+.side-nav a:hover {
+    color: var(--neon-purple);
+}
 
-        class Dot {
-          constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.4;
-            this.vy = (Math.random() - 0.5) * 0.4;
-            this.radius = 1.5;
-          }
-          update() {
-            this.x += this.vx; this.y += this.vy;
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-          }
-          draw() {
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)'; ctx.fill();
-          }
-        }
-        for (let i = 0; i < numDots; i++) dots.push(new Dot());
+/* --- 3. LOGO SUPERIOR IZQUIERDO --- */
+.top-left-logo {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+}
 
-        function drawPlexus() {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          dots.forEach(dot => {
-            dot.update(); dot.draw();
-            for (let j = dots.indexOf(dot) + 1; j < dots.length; j++) {
-              const otherDot = dots[j];
-              const dist = Math.sqrt((dot.x - otherDot.x)**2 + (dot.y - otherDot.y)**2);
-              if (dist < connectionDistance) {
-                ctx.beginPath(); ctx.moveTo(dot.x, dot.y); ctx.lineTo(otherDot.x, otherDot.y);
-                ctx.strokeStyle = `rgba(123, 46, 255, ${0.1 * (1 - dist/connectionDistance)})`; ctx.lineWidth = 0.5; ctx.stroke();
-              }
-            }
-            if (mouse.x && mouse.y) {
-              const distMouse = Math.sqrt((dot.x - mouse.x)**2 + (dot.y - mouse.y)**2);
-              if (distMouse < connectionDistance) {
-                 ctx.beginPath(); ctx.moveTo(dot.x, dot.y); ctx.lineTo(mouse.x, mouse.y);
-                 ctx.strokeStyle = `rgba(97, 200, 42, ${0.1 * (1 - distMouse/connectionDistance)})`; ctx.lineWidth = 0.5; ctx.stroke();
-              }
-            }
-          });
-          requestAnimationFrame(drawPlexus);
-        }
-        drawPlexus();
+.top-left-logo img {
+    width: 45px;
+    filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.8));
+}
 
-        // 3. Efecto 3D Tilt en Bento Items
-        const tiltElements = document.querySelectorAll('[data-tilt]');
-        tiltElements.forEach(el => {
-          el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const rotateX = ((e.clientY - rect.top - rect.height / 2) / (rect.height / 2)) * -8; 
-            const rotateY = ((e.clientX - rect.left - rect.width / 2) / (rect.width / 2)) * 8;
-            el.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-          });
-          el.addEventListener('mouseleave', () => { el.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0px)`; });
-        });
+.logo-text-mini {
+    font-size: 0.8rem;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 2px;
+}
 
-        // 4. Scroll Reveal Animation (Repetitiva)
-        const revealObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
-            else entry.target.classList.remove('active');
-          });
-        }, { threshold: 0.1 }); 
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-        
-    });
-  </script>
+.logo-text-mini span {
+    color: var(--neon-green);
+    font-size: 0.7rem;
+    font-weight: 800;
+}
 
-</body>
-</html>
+/* --- 4. HERO SECTION (INICIO) --- */
+.hero {
+    min-height: 100vh; /* Mantiene el alto de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra todo el bloque verticalmente */
+    align-items: center;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    
+    /* 👇 ESTA ES LA MAGIA: Controla el espacio entre el título, botón y stats 👇 */
+    gap: 30px; 
+}
+.cat-logo {
+    width: 220px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.8));
+}
+
+.agency-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.highlight-green {
+    color: var(--neon-green);
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.main-hook {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+.sub-hook {
+    font-size: 1rem;
+    color: #888888;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    padding: 15px 40px;
+    background-color: var(--neon-green);
+    color: #000;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(118, 185, 71, 0.2);
+}
+
+.cta-button:hover {
+    background-color: #52b022;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(118, 185, 71, 0.4);
+}
+
+/* --- BOTÓN LEARN MORE GENERAL (ESTILO HACKER ÉLITE) --- */
+/* --- BOTÓN LEARN MORE GENERAL (FUSIÓN: CAJA + LÁSER NEÓN) --- */
+.learn-more {
+    color: var(--neon-purple) !important;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: auto; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px 20px; /* Aquí le damos el tamaño de la caja */
+    background: rgba(123, 46, 255, 0.05); /* Fondo morado súper transparente */
+    border: 1px solid rgba(123, 46, 255, 0.3); /* El cuadro del botón */
+    border-radius: 4px; /* Esquinas ligeramente cuadradas estilo hacker */
+    width: max-content;
+    overflow: hidden; /* Para que el láser no se salga de la caja */
+    transition: all 0.3s ease;
+}
+
+/* La línea láser invisible que espera abajo */
+.learn-more::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px; /* Grosor de la línea verde */
+    background-color: var(--neon-green); 
+    box-shadow: 0 0 10px var(--neon-green); /* Brillo de la línea */
+    transition: width 0.3s ease-out;
+}
+
+/* --- EL EFECTO AL PASAR EL MOUSE (HOVER) --- */
+.learn-more:hover {
+    color: #ffffff !important;
+    background: rgba(123, 46, 255, 0.15); /* Se ilumina un poco más el morado del fondo */
+    text-shadow: 0 0 10px rgba(123, 46, 255, 0.8); /* El texto brilla */
+    border-color: rgba(123, 46, 255, 0.6); /* El cuadro se marca más */
+}
+
+/* La línea láser sale disparada de izquierda a derecha */
+.learn-more:hover::before {
+    width: 100%;
+}
+
+/* --- 5. SECCIÓN DE SERVICIOS (GRID DE 4 - TARJETAS VERTICALES) --- */
+/* --- 5. SECCIÓN DE SERVICIOS (GRID DE 4... --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+    padding: 0 5%;
+    max-width: 1300px;
+    margin: 100px auto 60px auto; /* 👇 Subimos de 0 a 100px el margin-top 👇 */
+    width: 100%;
+}
+.section-title-center {
+    text-align: center;
+    margin-top: 80px;   /* Espacio arriba del título */
+    margin-bottom: 60px; /* 👇 ESTE es el espacio que separa el título de las cards 👇 */
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+.service-card {
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    height: 480px; /* Estas se mantienen altas como en tu diseño */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(118, 185, 71, 0.2);
+}
+
+.service-card .card-text-area {
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 50%, rgba(10,10,10,0.6) 80%, transparent);
+    padding: 30px 25px 25px 25px;
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card h3 {
+    color: var(--neon-green);
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.service-card p {
+    color: #cccccc;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* --- 5.1 SEGUNDO BLOQUE ESTRATEGIAS (GRID DE 3 - CUADRADOS 800x800) --- */
+/* --- 5.1 SEGUNDO BLOQUE ESTRATEGIAS (ANCHAS Y ELITE) --- */
+/* --- 5.1 SEGUNDO BLOQUE ESTRATEGIAS (Glow Morado) --- */
+.strategy-card {
+    /* ... (tus estilos base: background, border, etc.) ... */
+    
+    /* 👇 LA CLAVE: Preparamos la transición para que sea suave 👇 */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease;
+    
+    /* Asegúrate de que el borde inicial sea sutil */
+    border: 1px solid rgba(255, 255, 255, 0.03); 
+}
+
+/* --- EL EFECTO AL PASAR EL MOUSE (HOVER) --- */
+.strategy-card:hover {
+    /* 1. Expansión: Se agranda un 5% y sube un poco */
+    transform: translateY(-15px) scale(1.05);
+    
+    /* 2. El Glow Morado Neón Deep */
+    box-shadow: 0 10px 50px rgba(123, 46, 255, 0.7); /* Morado intenso con transparencia */
+    
+    /* 3. El borde también se ilumina tantito */
+    border-color: rgba(123, 46, 255, 0.5); 
+    
+    /* Aseguramos que se vea por encima de las otras cards al expandirse */
+    z-index: 10; 
+}
+.strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px; /* Más espacio entre ellas */
+    padding: 0 5%;
+    max-width: 1500px; /* SUPER ANCHO para que se vean imponentes */
+    margin: 0 auto 100px auto;
+    width: 100%;
+}
+
+.strategy-card {
+    background-color: #1a1a1a;
+    border-radius: 20px;
+    min-height: 520px; /* Le subí un poquito para que luzcan más */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+    /* CONFIGURACIÓN PARA QUE LA IMAGEN SE VEA GRANDE */
+    background-repeat: no-repeat;
+    background-size: contain; /* Cambiamos 'auto' por 'contain' para que no se corte */
+    background-position: center 40px; /* La baja un poco del borde superior */
+    
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 0.4s ease;
+}
+
+.strategy-card .card-text-area {
+    /* El margen es vital para que el texto no tape tu imagen de la cámara/cerebro */
+    margin-top: 240px; 
+    padding: 25px; 
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Gradiente para que el fondo de la imagen se fusione con el negro de la card */
+    background: linear-gradient(to top, rgba(0,0,0,1) 80%, transparent);
+}
+/* El resto del código de h3, p y learn-more se queda igual que lo tienes */
+
+.strategy-card h3 {
+    color: var(--neon-green);
+    font-size: 1.1rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.strategy-card p {
+    color: #bbbbbb;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* EL BOTÓN QUE TE GUSTÓ: CAJA + LÍNEA VERDE */
+.strategy-card .learn-more {
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 10px 22px;
+    background: rgba(123, 46, 255, 0.1);
+    border: 1px solid rgba(123, 46, 255, 0.4);
+    border-radius: 4px;
+    color: var(--neon-purple) !important;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.strategy-card .learn-more::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+    transition: width 0.3s ease;
+}
+
+.strategy-card .learn-more:hover {
+    color: #fff !important;
+    background: rgba(123, 46, 255, 0.3);
+}
+
+.strategy-card .learn-more:hover::before {
+    width: 100%;
+}
+
+/* --- 6. BANNER GIGANTES (PLATEADO) --- */
+.banner-gigantes {
+    position: relative; 
+    width: 90%;
+    max-width: 1100px;
+    margin: 80px auto 120px auto;
+    background-image: url('banner.png'); 
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 60px 50px 80px 50px; 
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.banner-content {
+    max-width: 900px;
+}
+
+.banner-gigantes h2 {
+    color: #1a1a1a;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+}
+
+.founder-manifesto p {
+    color: #2b2b2b;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.manifesto-lead {
+    font-size: 1.2rem !important;
+    color: #1a1a1a !important;
+    font-weight: 800 !important;
+}
+
+.founder-manifesto strong {
+    font-weight: 900;
+    color: #000000;
+}
+
+.trusted-by-banner {
+    border-top: 1px solid rgba(0,0,0,0.15);
+    padding-top: 40px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.trusted-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #444444;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.trusted-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.client-logo {
+    height: 200px; 
+    width: auto;
+    opacity: 0.7;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.client-logo:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.logo-text-plata {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #333333;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* --- EL CYBER CAT INTEGRADO (CON GRAVEDAD Y INTERFAZ) --- */
+.metal-cat {
+    position: absolute;
+    bottom: -60px; /* Lo bajamos un poco más para que parezca que sale del banner */
+    left: 50%;
+    transform: translateX(-50%) scale(1); /* Escala base para la animación */
+    width: 130px; /* Un poco más grande para que se note */
+    
+    /* 👇 LA CLAVE: Sombra de gravedad proyectada 👇 */
+    filter: drop-shadow(0px 15px 10px rgba(0,0,0,0.9)); 
+    
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    z-index: 10; /* Aseguramos que esté por encima del banner */
+}
+
+/* Efecto al pasar el mouse (se eleva y se agranda) */
+.metal-cat:hover {
+    transform: translateX(-50%) translateY(-10px) scale(1.05); 
+    filter: drop-shadow(0px 25px 20px rgba(0,0,0,1)); /* Sombra más grande al elevarse */
+}
+
+/* Toque final: Añadir glow de ojos cyberpunk con pseudo-elemento */
+.metal-cat::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Ajusta esto para que caiga justo en los ojos */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px; /* Tamaño del glow */
+    height: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px var(--neon-green),
+        0 0 20px var(--neon-green);
+    opacity: 0;
+    animation: eyeGlow 2.5s infinite alternate; /* Animación intermitente */
+    z-index: -1; /* El glow va detrás de la imagen para no taparla */
+}
+
+/* La animación que hace que los ojos brillen suavemente */
+@keyframes eyeGlow {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.9); }
+}
+@media (max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); } 
+    .strategy-grid { grid-template-columns: repeat(2, 1fr); }
+    .banner-gigantes { padding: 40px 30px 60px 30px; }
+}
+
+@media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; } 
+    .strategy-grid { grid-template-columns: 1fr; }
+    .main-container { width: 100%; margin-right: 0; } 
+    .side-nav { display: none; } 
+    .agency-title { font-size: 2.5rem; }
+    .trusted-logos { gap: 30px; }
+}
+/* --- FOOTER ROOT: INTEGRACIÓN TOTAL CON LÍNEA COMPLETA --- */
+.footer-root {
+    width: 100%;
+    background: transparent;
+    padding: 60px 5% 40px 5%;
+    margin-top: 80px;
+    position: relative;
+}
+
+/* 👇 ESTA ES LA LÍNEA COMPLETA QUE QUERÍAS 👇 */
+.footer-root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Ahora cruza todo el ancho */
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-purple), var(--neon-green), transparent);
+    box-shadow: 0 0 10px rgba(123, 46, 255, 0.3);
+}
+
+.footer-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Status Online Parpadeando */
+.status-code {
+    margin-top: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.blink {
+    color: var(--neon-green);
+    font-weight: 800;
+    text-shadow: 0 0 8px var(--neon-green);
+    animation: blink-animation 1.5s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+    to { visibility: hidden; }
+}
+
+/* Estilos de Redes y Terminal */
+.social-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--neon-purple);
+    text-shadow: 0 0 10px var(--neon-purple);
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.terminal-user {
+    font-family: 'Courier New', monospace;
+    color: var(--neon-purple);
+    font-size: 0.8rem;
+}
+
+.timestamp {
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+/* --- ESTO VA AL FINAL DE TU CSS --- */
+
+.footer-socials {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* El separador que querías entre redes */
+.social-link:not(:last-child)::after {
+    content: '|';
+    margin-left: 20px;
+    color: rgba(118, 185, 71, 0.3); /* Verde neón sutil */
+    font-weight: 400;
+}
+/* --- HERO STATS (RELLENO DE ESPACIO) --- */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    width: 100%;
+    padding: 30px 0;
+    margin-top: 20px; /* Un margen pequeño, ya no necesitamos 60px o 100px */
+    border-top: 1px solid rgba(118, 185, 71, 0.1);
+    border-bottom: 1px solid rgba(118, 185, 71, 0.1);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px); /* Pequeño brinco al pasar el mouse */
+}
+
+.stat-number {
+    font-size: 2.2rem; /* Los hice un poco más grandes para que impongan */
+    font-weight: 900;
+    color: var(--neon-green);
+    text-shadow: 0 0 15px rgba(118, 185, 71, 0.4);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+/* --- ESTILO PARA LOS LOGOS DEL HERO --- */
+.tech-stack {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.tech-title {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--neon-purple);
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.tech-logos {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    /* Los pone blancos por defecto */
+    filter: brightness(0) invert(1) opacity(0.6);
+    transition: all 0.3s ease;
+}
+
+.tech-logos:hover {
+    filter: brightness(0) invert(1) opacity(1);
+}
+
+.tech-logos img {
+    height: 80px;
+    width: auto;
+    transition: filter 0.3s;
+}
+
+/* Efecto individual: Brillo neón al pasar el mouse */
+.tech-logos img:hover {
+    filter: drop-shadow(0 0 8px var(--neon-green));
+}
